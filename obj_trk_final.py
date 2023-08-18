@@ -52,6 +52,10 @@ def drawBox(img,bbox):
     cv2.rectangle(img,(x,y),((x+w),(y+h)),(255,0,255),3,1)
     cv2.putText(img,"Tracking",(75 ,90),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,255,0),2)
 
+while True:
+    check,img=video.read()
+    success,bbox=tracker.update(img)
+    
     if success:
         drawBox(img,bbox)
     else:
@@ -60,20 +64,18 @@ def drawBox(img,bbox):
     goal_track(img, bbox)
 
 
-cv2.imshow("result", img)
+    cv2.imshow("result", img)
 
 
 
-key = cv2.waitKey(1)
-if key == ord('q'):   
-    print("closing")
-    break
+    key = cv2.waitKey(1)
+    if key == ord('q'):
+        print("closing")
+        break
 
 
 
-while True:
-    check,img=video.read()
-    success,bbox=tracker.update(img)
+
 
 video.release()
 cv2.destroyALLwindows() 
